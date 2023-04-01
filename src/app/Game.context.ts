@@ -9,7 +9,6 @@ export interface ContextParams {
   setSelectedCards: React.Dispatch<React.SetStateAction<Card[]>>;
 
   previewCard: boolean;
-  setPreviewCard: React.Dispatch<React.SetStateAction<boolean>>;
 
   found: number;
   setFound: React.Dispatch<React.SetStateAction<number>>;

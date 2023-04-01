@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import { GameLogic, PreviewCards } from "./components";
 import { GameProvider } from "./app/Game.context";
+import { usePreview } from "./shared/hooks/usePreview";
 
 const data: Card[] = [
   { id: 1, icon: "🟢", key: "green", visible: false },
@@ -35,15 +36,11 @@ export interface Card {
 function App() {
   const [cards, setCards] = useState(data);
   const [selectedCards, setSelectedCards] = useState<Card[]>([]);
-  const [previewCard, setPreviewCard] = useState(true);
+
   const [found, setFound] = useState(0);
   const [attempts, setAttempts] = useState(0);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setPreviewCard(false);
-    }, 2000);
-  }, []);
+  const previewCard = usePreview(2000);
 
   return (
     <div>
@@ -56,7 +53,6 @@ function App() {
           setSelectedCards,
           setCards,
           setFound,
-          setPreviewCard,
           attempts,
           setAttempts,
         }}
@@ -64,7 +60,7 @@ function App() {
         {!previewCard && <h3>Найдено совпадений: {found}</h3>}
         {!previewCard && <h3>Всего попыток: {attempts}</h3>}
 
-        <div className="App">
+        <div className='App'>
           {!previewCard && <GameLogic />}
           {previewCard && <PreviewCards />}
         </div>
